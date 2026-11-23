@@ -1,13 +1,20 @@
 import express from 'express'
+import helmet from 'helmet'
 import { connectDB } from './DB/DB.connection.js'
 import authRouter from './modules/auth/auth.controller.js'
 import productsController from './modules/products/products.controller.js'
 import movementsController from './modules/movements/movements.controller.js'
+import { limiter } from './security/limiter.js'
+
 const app = express()
 const port = Number(process.env.PORT || 3000)
 
 export const bootstrap = async () => {
+
+    app.use(helmet())
     app.use(express.json())
+
+    app.use(limiter)
 
     await connectDB()
 
@@ -21,7 +28,6 @@ export const bootstrap = async () => {
         return res.status(statusCode).json({
             success: false,
             message: error.message || "Internal Server Error",
-
             stack: process.env.NODE_ENV === "development" ? error.stack : undefined
         });
     });
