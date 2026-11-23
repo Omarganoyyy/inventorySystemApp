@@ -8,6 +8,14 @@ const stockMovementSchema = new Schema(
             required: true,
             index: true
         },
+        productName:{
+            type:String,
+            required:true
+        },
+        productSKU:{
+            type:String,
+            required:true
+        },
         type: {
             type: String,
             enum: ["IN", "OUT", "ADJUST"],
