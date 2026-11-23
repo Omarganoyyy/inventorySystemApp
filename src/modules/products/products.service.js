@@ -36,7 +36,10 @@ export const createProduct = async (req, res, next) => {
 export const listProducts = async (req, res, next) => {
     try {
         const { page = 1, limit = 10, category } = req.query
-        const filter = category ? { category: category.toLowerCase() } : {}
+        const filter = {
+            isDeleted: { $ne: true },
+            ...(category ? { category: category.toLowerCase() } : {})
+        };
 
         const products = await ProductModel.find(filter)
             .sort({ name: 1 })
@@ -65,7 +68,10 @@ export const productWithId = async (req, res, next) => {
     try {
         const { productId } = req.params;
 
-        const product = await ProductModel.findById(productId).populate("createdBy", "name email");
+        const product = await ProductModel.findOne({
+            _id: productId,
+            isDeleted: { $ne: true }
+        }).populate("createdBy", "name email");
 
         if (!product) {
             return res.status(404).json({ message: "No Product Found" });
@@ -104,7 +110,7 @@ export const updateProductWithId = async (req, res, next) => {
             productId,
             { $set: updateEntities },
             {
-                new: true,
+                returnDocument: "after",
                 runValidators: true
             }
         );
@@ -158,7 +164,7 @@ export const freezeProductWithId = async (req, res, next) => {
                     deletedAt: new Date()
                 }
             },
-            { new: true }
+            { returnDocument: "after", runValidators: true }
         );
 
         if (!product) {

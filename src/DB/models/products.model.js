@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import CounterModel from "./counter.model.js";
 
 const productSchema = new Schema(
     {
@@ -14,11 +15,9 @@ const productSchema = new Schema(
             trim: true,
             maxlength: [1000, "Description cannot exceed 1000 characters"]
         },
-        note: {
+        SKU: {
             type: String,
-            trim: true,
-            maxlength: [500, "Note cannot exceed 500 characters"],
-            default: ""
+            unique: true,
         },
         price: {
             type: Number,
@@ -72,6 +71,21 @@ productSchema.virtual("stockWarning").get(function () {
     }
     return null;
 });
+
+productSchema.pre("save", async function (next) {
+    if (this.isNew) {
+        const counter = await CounterModel.findOneAndUpdate(
+            { _id: "product" },
+            { $inc: { sequence: 1 } },
+            {
+                upsert: true,
+                returnDocument: "after"
+            }
+        );
+
+        this.SKU = `PRD-${String(counter.sequence).padStart(6, "0")}`;
+    }
+})
 
 const ProductModel = model("Product", productSchema);
 

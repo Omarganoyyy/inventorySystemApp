@@ -14,7 +14,7 @@ export const authentication = (req, res, next) => {
             return res.status(401).json({ message: "Invalid or missing token parts" })
         }
 
-        const user = jwt.verify(token, process.env.JWT_SECRET || "fallbackSecretKey")
+        const user = jwt.verify(token, process.env.JWT_SECRET)
 
         req.user = user
 

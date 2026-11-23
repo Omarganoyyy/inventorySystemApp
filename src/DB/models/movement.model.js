@@ -10,7 +10,7 @@ const stockMovementSchema = new Schema(
         },
         type: {
             type: String,
-            enum: ["INCREASE", "DECREASE", "ADJUSTMENT"],
+            enum: ["IN", "OUT", "ADJUST"],
             required: true
         },
         quantity: {
@@ -19,11 +19,13 @@ const stockMovementSchema = new Schema(
         },
         stockBefore: {
             type: Number,
-            required: true
+            required: true,
+            min: [0, 'Price cannot be negative, got {VALUE}']
         },
         stockAfter: {
             type: Number,
-            required: true
+            required: true,
+            min: [0, 'Price cannot be negative, got {VALUE}']
         },
         reason: {
             type: String,

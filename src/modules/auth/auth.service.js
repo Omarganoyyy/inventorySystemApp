@@ -122,7 +122,7 @@ export const approveUser = async (req, res, next) => {
             approvedBy: req.user.id,
             approvedAt: new Date()
         },
-            { new: true })
+            { returnDocument: "after" })
 
         if (!user) {
             return res.status(404).json({ message: "User Not Found" })
@@ -144,7 +144,7 @@ export const rejectUser = async (req, res, next) => {
         const user = await UserModel.findByIdAndUpdate(
             userId,
             { status: "rejected" },
-            { new: true }
+            { returnDocument: "after" }
         );
 
         if (!user) {

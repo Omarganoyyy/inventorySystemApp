@@ -2,6 +2,7 @@ import express from 'express'
 import { connectDB } from './DB/DB.connection.js'
 import authRouter from './modules/auth/auth.controller.js'
 import productsController from './modules/products/products.controller.js'
+import movementsController from './modules/movements/movements.controller.js'
 const app = express()
 const port = Number(process.env.PORT || 3000)
 
@@ -12,6 +13,7 @@ export const bootstrap = async () => {
 
     app.use('/auth', authRouter)
     app.use('/products', productsController)
+    app.use('/movements', movementsController)
 
     app.use((error, req, res, next) => {
         const statusCode = typeof error.cause === 'number' ? error.cause : (error.status || 500);
