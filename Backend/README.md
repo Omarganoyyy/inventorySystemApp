@@ -14,6 +14,8 @@ A Node.js and Express API for user registration and approval, authentication, an
 
 ## Project structure
 
+All backend project files are in the `Backend` folder. The tree below is relative to that folder.
+
 ```text
 .
 ├── .gitignore
@@ -48,20 +50,26 @@ A Node.js and Express API for user registration and approval, authentication, an
 ## Setup
 
 1. Install Node.js 20.6 or newer and have a MongoDB instance available.
-2. Install dependencies:
+2. From the repository root, enter the backend folder:
+
+   ```sh
+   cd Backend
+   ```
+
+3. Install dependencies:
 
    ```sh
    npm ci
    ```
 
-3. Set the following names in your local `.env` file. Do not commit that file. The environment variable names used by the application are:
+4. Set the following names in your local `.env` file. Do not commit that file. The environment variable names used by the application are:
 
    - Required: `DB_URI`, `JWT_SECRET`, `SALT`
    - Optional: `PORT`, `NODE_ENV`
 
    `SALT` must be a valid bcrypt cost value. `PORT` defaults to 3000 in the application. Keep real credentials only in your local `.env`; no `.env.example` file is included.
 
-4. Start the application:
+5. Start the application:
 
    ```sh
    npm start
