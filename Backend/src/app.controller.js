@@ -1,5 +1,6 @@
 import express from 'express'
 import helmet from 'helmet'
+import cors from 'cors'
 import { connectDB } from './DB/DB.connection.js'
 import authRouter from './modules/auth/auth.controller.js'
 import productsController from './modules/products/products.controller.js'
@@ -12,6 +13,7 @@ const port = Number(process.env.PORT || 3000)
 export const bootstrap = async () => {
 
     app.use(helmet())
+    app.use(cors())
     app.use(express.json())
 
     app.use(limiter)

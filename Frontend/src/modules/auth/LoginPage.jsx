@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import './LoginPage.css';
+import './AuthResponsive.css';
 
 export const LoginPage = () => {
     return (
@@ -16,11 +17,15 @@ export const LoginPage = () => {
                     <h2 className="login-title">Welcome Back</h2>
 
                     <div className="login-inputs">
-                        <p className="email-title">Email</p>
-                        <input type="email" placeholder="Enter your email" />
+                        <label className="auth-field">
+                            <span className="email-title">Email</span>
+                            <input type="email" autoComplete="email" placeholder="Enter your email" />
+                        </label>
 
-                        <p className="password-title">Password</p>
-                        <input type="password" placeholder="Enter your password" />
+                        <label className="auth-field">
+                            <span className="password-title">Password</span>
+                            <input type="password" autoComplete="current-password" placeholder="Enter your password" />
+                        </label>
                     </div>
 
                     <div className="button-container">

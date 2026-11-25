@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import './LoginPage.css'; // Uses the existing aurora styles and input layouts
+import './AuthResponsive.css';
 
 export const SignUpPage = () => {
     return (
@@ -23,11 +24,20 @@ export const SignUpPage = () => {
                     <h2 className="login-title">Create Account</h2>
 
                     <div className="login-inputs">
-                        <p className="email-title">Email</p>
-                        <input type="email" placeholder="Enter your email" />
+                        <label className="auth-field">
+                            <span className="email-title">Name</span>
+                            <input type="text" autoComplete="name" placeholder="Enter your full name" />
+                        </label>
 
-                        <p className="password-title">Password</p>
-                        <input type="password" placeholder="Create a password" />
+                        <label className="auth-field">
+                            <span className="email-title">Email</span>
+                            <input type="email" autoComplete="email" placeholder="Enter your email" />
+                        </label>
+
+                        <label className="auth-field">
+                            <span className="password-title">Password</span>
+                            <input type="password" autoComplete="new-password" placeholder="Create a password" />
+                        </label>
                     </div>
 
                     <div className="button-container">
